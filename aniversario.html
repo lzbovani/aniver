@@ -108,6 +108,145 @@
 
 		@keyframes waveMove { from { background-position-x: 0; } to { background-position-x: 2400px; } }
 
+		/* BARQUINHO NO MAR */
+		.boat {
+			position: absolute;
+			top: 48vh;
+			left: -120px;
+			width: 100px;
+			height: 50px;
+			z-index: 1;
+			animation: boatSail 25s linear infinite;
+		}
+
+		.boat .hull {
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			width: 80px;
+			height: 25px;
+			background: linear-gradient(
+				to bottom,
+				#ffffff 0%,
+				#f5f5f5 30%,
+				#e0e0e0 70%,
+				#bdbdbd 100%
+			);
+			border-radius: 40px 40px 8px 8px;
+			transform: translateX(-50%);
+			box-shadow: 
+				0 3px 8px rgba(0,0,0,0.2),
+				0 0 0 1px rgba(0,0,0,0.1) inset;
+		}
+
+		.boat .hull::before {
+			content: '';
+			position: absolute;
+			top: -2px;
+			left: 50%;
+			width: 70px;
+			height: 8px;
+			background: linear-gradient(to right, #2196f3, #1976d2);
+			border-radius: 20px;
+			transform: translateX(-50%);
+		}
+
+		.boat .mast {
+			position: absolute;
+			bottom: 25px;
+			left: 50%;
+			width: 3px;
+			height: 40px;
+			background: linear-gradient(to bottom, #8d6e63, #6d4c41);
+			transform: translateX(-50%);
+			border-radius: 2px;
+		}
+
+		.boat .sail {
+			position: absolute;
+			bottom: 35px;
+			left: 52%;
+			width: 25px;
+			height: 30px;
+			background: linear-gradient(
+				45deg,
+				#ffffff 0%,
+				#f8f9fa 50%,
+				#e9ecef 100%
+			);
+			border-radius: 0 8px 8px 0;
+			transform: translateX(-50%);
+			box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+			animation: sailFlutter 3s ease-in-out infinite;
+		}
+
+		.boat .sail::before {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: repeating-linear-gradient(
+				45deg,
+				transparent,
+				transparent 3px,
+				rgba(0,0,0,0.05) 3px,
+				rgba(0,0,0,0.05) 4px
+			);
+			border-radius: 0 8px 8px 0;
+		}
+
+		.boat .flag {
+			position: absolute;
+			bottom: 62px;
+			left: 52%;
+			width: 12px;
+			height: 8px;
+			background: linear-gradient(45deg, #e91e63, #ad1457);
+			border-radius: 0 4px 4px 0;
+			transform: translateX(-50%);
+			animation: flagWave 2s ease-in-out infinite;
+		}
+
+		/* Ondas ao redor do barco */
+		.boat-wake {
+			position: absolute;
+			bottom: -8px;
+			left: 50%;
+			width: 60px;
+			height: 12px;
+			background: radial-gradient(
+				ellipse,
+				rgba(255,255,255,0.6) 0%,
+				rgba(255,255,255,0.3) 40%,
+				transparent 70%
+			);
+			transform: translateX(-50%);
+			border-radius: 50%;
+			animation: wakeRipple 2s ease-in-out infinite;
+		}
+
+		@keyframes boatSail {
+			0% { left: -120px; }
+			100% { left: calc(100vw + 20px); }
+		}
+
+		@keyframes sailFlutter {
+			0%, 100% { transform: translateX(-50%) skewX(0deg); }
+			50% { transform: translateX(-50%) skewX(-2deg); }
+		}
+
+		@keyframes flagWave {
+			0%, 100% { transform: translateX(-50%) rotate(0deg); }
+			50% { transform: translateX(-50%) rotate(8deg); }
+		}
+
+		@keyframes wakeRipple {
+			0%, 100% { opacity: 0.6; transform: translateX(-50%) scaleX(1); }
+			50% { opacity: 0.3; transform: translateX(-50%) scaleX(1.2); }
+		}
+
 		/* Beach scene */
 		.beach-scene {
 			position: fixed;
@@ -719,6 +858,14 @@
 		<div class="wave one"></div>
 		<div class="wave two"></div>
 		<div class="wave three"></div>
+		<!-- Barquinho navegando -->
+		<div class="boat">
+			<div class="boat-wake"></div>
+			<div class="hull"></div>
+			<div class="mast"></div>
+			<div class="sail"></div>
+			<div class="flag"></div>
+		</div>
 	</div>
 	<div class="beach-scene" aria-hidden="true">
 		<!-- Left palm tree - MUITAS FOLHAS -->
