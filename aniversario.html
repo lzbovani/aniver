@@ -677,18 +677,17 @@
 		}
 
 		.candle:after {
-			content: "";
+			content: "♥";
 			position: absolute;
 			left: 50%;
 			transform: translateX(-50%);
-			bottom: 30px;
-			width: 12px;
-			height: 16px;
-			background: radial-gradient(circle at 50% 35%, #fff59d 20%, #ff9800 60%, rgba(255, 152, 0, 0.0) 61%);
-			border-radius: 50% 50% 50% 50%;
-			filter: drop-shadow(0 0 6px rgba(255, 193, 7, 0.8));
+			bottom: 28px;
+			font-size: 18px;
+			line-height: 1;
+			color: #ff9800;
+			text-shadow: 0 0 8px rgba(255, 152, 0, 0.6), 0 1px 2px rgba(0,0,0,0.2);
 			opacity: 0;
-			animation: flameFlicker 1.4s ease-in-out 1.4s infinite, flameAppear .01s linear 1.4s forwards;
+			animation: heartGlow 1.4s ease-in-out 1.4s infinite, flameAppear .01s linear 1.4s forwards;
 		}
 
 		@keyframes riseIn {
@@ -698,9 +697,9 @@
 
 		@keyframes flameAppear { to { opacity: 1; } }
 
-		@keyframes flameFlicker {
-			0%, 100% { filter: drop-shadow(0 0 6px rgba(255,193,7,0.8)); transform: translateX(-50%) translateY(0) scale(1); }
-			50% { filter: drop-shadow(0 0 12px rgba(255,193,7,1)); transform: translateX(-50%) translateY(-1px) scale(1.08); }
+		@keyframes heartGlow {
+			0%, 100% { transform: translateX(-50%) scale(1); text-shadow: 0 0 8px rgba(255, 152, 0, 0.6), 0 1px 2px rgba(0,0,0,0.2); }
+			50% { transform: translateX(-50%) scale(1.15); text-shadow: 0 0 14px rgba(255, 152, 0, 0.9), 0 1px 2px rgba(0,0,0,0.2); }
 		}
 
 		/* Floating hearts */
@@ -856,15 +855,65 @@
 			to { opacity: 1; transform: translateY(0); }
 		}
 
-		/* Timer */
-		.timer {
-			margin-top: 16px;
+		/* Timer visual */
+		.timer-wrap {
+			margin-top: 20px;
+			text-align: center;
+		}
+
+		.timer-title {
+			margin: 0 0 12px 0;
+			font-size: 1.1rem;
 			font-weight: 600;
 			color: #ad1457;
-			background: rgba(255,255,255,0.8);
-			padding: 10px 14px;
-			border-radius: 10px;
-			box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+			text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+		}
+
+		.timer {
+			display: grid;
+			grid-template-columns: repeat(6, 1fr);
+			gap: 8px;
+			max-width: 100%;
+		}
+
+		.timer-unit {
+			background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(255,240,245,0.9));
+			border-radius: 12px;
+			padding: 10px 6px;
+			box-shadow: 0 4px 12px rgba(0,0,0,0.08), 0 0 0 1px rgba(255,255,255,0.6) inset;
+			min-width: 0;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 2px;
+		}
+
+		.timer-value {
+			font-size: 1.5rem;
+			font-weight: 800;
+			line-height: 1.2;
+			color: #c2185b;
+			text-shadow: 0 1px 2px rgba(255,255,255,0.9);
+			font-variant-numeric: tabular-nums;
+		}
+
+		.timer-label {
+			font-size: 0.65rem;
+			font-weight: 600;
+			color: #ad1457;
+			opacity: 0.95;
+			text-transform: lowercase;
+			line-height: 1.2;
+		}
+
+		@media (max-width: 640px) {
+			.timer {
+				grid-template-columns: repeat(3, 1fr);
+				gap: 6px;
+			}
+			.timer-value { font-size: 1.25rem; }
+			.timer-label { font-size: 0.6rem; }
+			.timer-unit { padding: 8px 4px; }
 		}
 	</style>
 </head>
@@ -1006,7 +1055,17 @@
 					<div class="icing"></div>
 					<div class="candle"></div>
 				</div>
-				<div class="timer" id="loveTimer">te amando há 0 anos, 0 meses, 0 dias, 0 horas, 0 minutos, 0 segundos</div>
+				<div class="timer-wrap">
+					<p class="timer-title">te amando há</p>
+					<div class="timer" id="loveTimer">
+						<div class="timer-unit"><span class="timer-value" id="tYears">0</span><span class="timer-label" id="lYears">anos</span></div>
+						<div class="timer-unit"><span class="timer-value" id="tMonths">0</span><span class="timer-label" id="lMonths">meses</span></div>
+						<div class="timer-unit"><span class="timer-value" id="tDays">0</span><span class="timer-label" id="lDays">dias</span></div>
+						<div class="timer-unit"><span class="timer-value" id="tHours">0</span><span class="timer-label" id="lHours">horas</span></div>
+						<div class="timer-unit"><span class="timer-value" id="tMinutes">0</span><span class="timer-label" id="lMinutes">minutos</span></div>
+						<div class="timer-unit"><span class="timer-value" id="tSeconds">0</span><span class="timer-label" id="lSeconds">segundos</span></div>
+					</div>
+				</div>
 			</div>
 			<img class="photo" src="./foto-2.jpeg" alt="Nossa foto à direita">
 		</div>
@@ -1044,7 +1103,22 @@
 
 		// Timer desde 23/12/2024 (dia/mês/ano)
 		const startDate = new Date(2024, 11, 23, 0, 0, 0); // mês 11 = Dezembro
-		const el = document.getElementById('loveTimer');
+		const timerValues = {
+			years: document.getElementById('tYears'),
+			months: document.getElementById('tMonths'),
+			days: document.getElementById('tDays'),
+			hours: document.getElementById('tHours'),
+			minutes: document.getElementById('tMinutes'),
+			seconds: document.getElementById('tSeconds')
+		};
+		const timerLabels = {
+			years: document.getElementById('lYears'),
+			months: document.getElementById('lMonths'),
+			days: document.getElementById('lDays'),
+			hours: document.getElementById('lHours'),
+			minutes: document.getElementById('lMinutes'),
+			seconds: document.getElementById('lSeconds')
+		};
 
 		function plural(n, singular, pluralForm) {
 			return n === 1 ? singular : pluralForm;
@@ -1078,17 +1152,21 @@
 
 		function renderTimer() {
 			const now = new Date();
-			const { years, months, days, hours, minutes, seconds } = diffFromStart(now);
-			if (!el) return;
-			const parts = [
-				years + ' ' + plural(years, 'ano', 'anos'),
-				months + ' ' + plural(months, 'mês', 'meses'),
-				days + ' ' + plural(days, 'dia', 'dias'),
-				hours + ' ' + plural(hours, 'hora', 'horas'),
-				minutes + ' ' + plural(minutes, 'minuto', 'minutos'),
-				seconds + ' ' + plural(seconds, 'segundo', 'segundos')
-			];
-			el.textContent = 'te amando há ' + parts.join(', ');
+			const d = diffFromStart(now);
+			const keys = ['years', 'months', 'days', 'hours', 'minutes', 'seconds'];
+			const labels = {
+				years: ['ano', 'anos'],
+				months: ['mês', 'meses'],
+				days: ['dia', 'dias'],
+				hours: ['hora', 'horas'],
+				minutes: ['minuto', 'minutos'],
+				seconds: ['segundo', 'segundos']
+			};
+			keys.forEach(function(k) {
+				const v = d[k];
+				if (timerValues[k]) timerValues[k].textContent = v;
+				if (timerLabels[k]) timerLabels[k].textContent = v === 1 ? labels[k][0] : labels[k][1];
+			});
 		}
 
 		renderTimer();
