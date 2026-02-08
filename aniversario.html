@@ -4,6 +4,9 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Aniversário</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
 	<style>
 		.Happy__Birthday {
 			font-family: 'My love';
@@ -844,7 +847,313 @@
 			transition: transform .15s ease, opacity .2s ease;
 		}
 
+		.surprise-btn {
+			background: transparent;
+			color: #ad1457;
+			border: 2px solid #ad1457;
+			border-radius: 10px;
+			padding: 10px 16px;
+			font-size: 0.95rem;
+			font-weight: 600;
+			cursor: pointer;
+			margin-top: 10px;
+			transition: transform .15s ease, background .2s ease, color .2s ease;
+		}
+
+		.surprise-btn:hover {
+			background: rgba(173, 20, 87, 0.1);
+		}
+
 		.start-btn:active { transform: translateY(1px); }
+		.surprise-btn:active { transform: translateY(1px); }
+
+		/* Tela surpresa - CINESALA Encontro na Chuva */
+		@keyframes fall {
+			0% { transform: translateY(-100px); opacity: 1; }
+			100% { transform: translateY(100vh); opacity: 0.3; }
+		}
+
+		#surprise-screen {
+			position: fixed;
+			inset: 0;
+			background: linear-gradient(to bottom, #0a0a0a 0%, #1a1a2e 100%);
+			z-index: 1000;
+			display: none;
+			align-items: center;
+			justify-content: center;
+			box-sizing: border-box;
+			overflow: hidden;
+		}
+
+		#surprise-screen.show {
+			display: flex;
+			animation: fadeIn 0.4s ease forwards;
+		}
+
+		#surprise-screen .scene {
+			position: relative;
+			width: 100%;
+			height: 100%;
+			max-width: 100vw;
+			max-height: 100vh;
+			overflow: hidden;
+			font-family: Arial, sans-serif;
+		}
+
+		#surprise-screen .plant {
+			position: absolute;
+			bottom: 0;
+			width: 150px;
+			height: 400px;
+		}
+
+		#surprise-screen .plant-left { left: 50px; }
+		#surprise-screen .plant-right { right: 50px; }
+
+		#surprise-screen .leaf {
+			position: absolute;
+			background: linear-gradient(135deg, #2d5016 0%, #4a7c2c 50%, #2d5016 100%);
+			border-radius: 50% 0;
+			transform-origin: bottom center;
+		}
+
+		#surprise-screen .cinema {
+			position: absolute;
+			bottom: 100px;
+			left: 50%;
+			transform: translateX(-50%);
+			width: min(700px, 90vw);
+			height: 400px;
+			background: linear-gradient(to bottom, #c8c8c8 0%, #a0a0a0 100%);
+			box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+		}
+
+		#surprise-screen .cinema-sign {
+			position: absolute;
+			top: -60px;
+			left: 50%;
+			transform: translateX(-50%);
+			background: white;
+			padding: 15px 60px;
+			font-size: clamp(32px, 5vw, 48px);
+			font-weight: bold;
+			letter-spacing: 2px;
+			box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+		}
+
+		#surprise-screen .cinema-sign .red { color: #e63946; }
+
+		#surprise-screen .divider {
+			position: absolute;
+			left: 50%;
+			top: 0;
+			width: 8px;
+			height: 100%;
+			background: #1a1a1a;
+			transform: translateX(-50%);
+		}
+
+		#surprise-screen .person { position: absolute; bottom: 80px; }
+		#surprise-screen .person-male { left: 200px; }
+		#surprise-screen .person-female { left: 320px; }
+
+		#surprise-screen .male-head {
+			width: 50px; height: 50px; background: #ffdbac;
+			border-radius: 50%; position: relative; margin: 0 auto 5px;
+		}
+
+		#surprise-screen .male-body {
+			width: 60px; height: 80px; background: #7b68ee;
+			border-radius: 10px 10px 20px 20px; position: relative;
+		}
+
+		#surprise-screen .male-legs {
+			width: 50px; height: 60px; background: #4a4a4a;
+			border-radius: 0 0 10px 10px; margin: 0 auto;
+		}
+
+		#surprise-screen .female-head {
+			width: 50px; height: 50px; background: #ffdbac;
+			border-radius: 50%; position: relative; margin: 0 auto 5px;
+		}
+
+		#surprise-screen .female-hair {
+			position: absolute;
+			width: 55px; height: 30px; background: #3d2817;
+			border-radius: 50% 50% 0 0;
+			top: -5px; left: -2.5px;
+		}
+
+		#surprise-screen .female-body {
+			width: 70px; height: 90px; background: #8b7d6b;
+			border-radius: 10px 10px 35px 35px; position: relative;
+		}
+
+		#surprise-screen .female-legs {
+			width: 40px; height: 50px; background: #5a5a5a;
+			border-radius: 0 0 8px 8px; margin: 0 auto;
+		}
+
+		#surprise-screen .umbrella {
+			position: absolute;
+			bottom: 210px;
+			left: 240px;
+			z-index: 10;
+		}
+
+		#surprise-screen .umbrella-handle {
+			position: absolute;
+			width: 4px;
+			height: 120px;
+			background: #2a2a2a;
+			left: 50%;
+			top: 60px;
+			transform: translateX(-50%);
+		}
+
+		#surprise-screen .umbrella-top {
+			width: 180px;
+			height: 90px;
+			background: #1a1a1a;
+			border-radius: 50% 50% 0 0;
+			position: relative;
+			overflow: hidden;
+		}
+
+		#surprise-screen .umbrella-segment {
+			position: absolute;
+			width: 36px;
+			height: 100%;
+			top: 0;
+		}
+
+		#surprise-screen .ground {
+			position: absolute;
+			bottom: 100px;
+			left: 0;
+			width: 100%;
+			height: 150px;
+			background: linear-gradient(to bottom,
+				rgba(50, 50, 70, 0.3) 0%,
+				rgba(30, 30, 50, 0.5) 50%,
+				rgba(20, 20, 40, 0.7) 100%);
+		}
+
+		#surprise-screen .reflection {
+			position: absolute;
+			bottom: 10px;
+			left: 50%;
+			transform: translateX(-50%);
+			width: min(700px, 90vw);
+			height: 100px;
+			background: linear-gradient(to top,
+				rgba(200, 200, 200, 0.1) 0%,
+				rgba(160, 160, 160, 0.05) 100%);
+			filter: blur(8px);
+		}
+
+		#surprise-screen .rain {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			pointer-events: none;
+			z-index: 25;
+		}
+
+		#surprise-screen .raindrop {
+			position: absolute;
+			width: 2px;
+			height: 30px;
+			background: linear-gradient(to bottom,
+				rgba(174, 194, 224, 0.8) 0%,
+				rgba(174, 194, 224, 0.3) 100%);
+			animation: fall linear infinite;
+		}
+
+		#surprise-screen .poster {
+			position: absolute;
+			right: 80px;
+			top: 100px;
+			width: 150px;
+			height: 200px;
+			background: #e0e0e0;
+			border: 5px solid #888;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		#surprise-screen .poster-lines {
+			width: 80%;
+			height: 60%;
+			background: linear-gradient(
+				135deg,
+				#999 25%,
+				transparent 25%,
+				transparent 75%,
+				#999 75%
+			);
+			background-size: 20px 20px;
+		}
+
+		#surprise-screen .chair {
+			position: absolute;
+			left: 80px;
+			top: 180px;
+			width: 80px;
+			height: 60px;
+			background: #654321;
+			border-radius: 10px 10px 0 0;
+		}
+
+		#surprise-screen .chair::before {
+			content: '';
+			position: absolute;
+			bottom: -30px;
+			left: 10px;
+			width: 60px;
+			height: 30px;
+			background: #654321;
+			border-radius: 0 0 10px 10px;
+		}
+
+		#surprise-screen .cinema-light {
+			position: absolute;
+			top: 50px;
+			width: 100%;
+			height: 100%;
+			background: radial-gradient(
+				ellipse at center,
+				rgba(255, 248, 220, 0.3) 0%,
+				transparent 70%
+			);
+			pointer-events: none;
+		}
+
+		.cinema-close {
+			position: absolute;
+			top: 16px;
+			right: 16px;
+			width: 44px;
+			height: 44px;
+			border: none;
+			background: rgba(0,0,0,0.5);
+			color: #fff;
+			font-size: 1.5rem;
+			border-radius: 50%;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			transition: background .2s ease;
+			z-index: 100;
+		}
+
+		.cinema-close:hover {
+			background: rgba(0,0,0,0.75);
+		}
 
 		/* Main visibility */
 		#main { display: none; opacity: 0; }
@@ -1037,8 +1346,53 @@
 			<div class="gate-card">
 				<h2 style="margin-top:0;color:#ad1457">Pronta para uma surpresa?</h2>
 				<button id="start" class="start-btn">Quero ver!</button>
+				<button id="surpriseBtn" class="surprise-btn">Quer uma nova surpresa?</button>
 			</div>
 			<img class="gate-photo" src="./foto-4.png" alt="Nossa foto">
+		</div>
+	</div>
+
+	<!-- Tela surpresa: CINESALA Encontro na Chuva -->
+	<div id="surprise-screen" aria-hidden="true">
+		<button type="button" class="cinema-close" id="surpriseClose" aria-label="Fechar">×</button>
+		<div class="scene">
+			<div class="plant plant-left" id="plantLeft"></div>
+			<div class="plant plant-right" id="plantRight"></div>
+			<div class="ground">
+				<div class="reflection"></div>
+			</div>
+			<div class="cinema">
+				<div class="cinema-light"></div>
+				<div class="cinema-sign">CINE<span class="red">S</span>ALA</div>
+				<div class="divider"></div>
+				<div class="chair"></div>
+				<div class="poster">
+					<div class="poster-lines"></div>
+				</div>
+			</div>
+			<div class="umbrella">
+				<div class="umbrella-top">
+					<div class="umbrella-segment" style="left: 0; background: #2a2a2a;"></div>
+					<div class="umbrella-segment" style="left: 36px; background: #1a1a1a;"></div>
+					<div class="umbrella-segment" style="left: 72px; background: #2a2a2a;"></div>
+					<div class="umbrella-segment" style="left: 108px; background: #1a1a1a;"></div>
+					<div class="umbrella-segment" style="left: 144px; background: #2a2a2a;"></div>
+				</div>
+				<div class="umbrella-handle"></div>
+			</div>
+			<div class="person person-male">
+				<div class="male-head"></div>
+				<div class="male-body"></div>
+				<div class="male-legs"></div>
+			</div>
+			<div class="person person-female">
+				<div class="female-head">
+					<div class="female-hair"></div>
+				</div>
+				<div class="female-body"></div>
+				<div class="female-legs"></div>
+			</div>
+			<div class="rain" id="rain"></div>
 		</div>
 	</div>
 
@@ -1097,9 +1451,79 @@
 			main.setAttribute('aria-hidden', 'false');
 		}
 
+		const surpriseScreen = document.getElementById('surprise-screen');
+		const surpriseBtn = document.getElementById('surpriseBtn');
+		const surpriseClose = document.getElementById('surpriseClose');
+
 		if (startBtn) {
 			startBtn.addEventListener('click', showMain);
 		}
+
+		function createPlant(containerId, isLeft) {
+			const container = document.getElementById(containerId);
+			if (!container) return;
+			const leaves = [
+				{ width: 60, height: 120, bottom: 200, left: isLeft ? 20 : 60, rotation: isLeft ? -20 : 20 },
+				{ width: 70, height: 140, bottom: 150, left: isLeft ? 40 : 40, rotation: isLeft ? -30 : 30 },
+				{ width: 80, height: 160, bottom: 100, left: isLeft ? 10 : 50, rotation: isLeft ? -40 : 40 },
+				{ width: 75, height: 150, bottom: 50, left: isLeft ? 35 : 30, rotation: isLeft ? -25 : 25 },
+				{ width: 65, height: 130, bottom: 0, left: isLeft ? 25 : 45, rotation: isLeft ? -15 : 15 }
+			];
+			leaves.forEach(function(leaf) {
+				const div = document.createElement('div');
+				div.className = 'leaf';
+				div.style.width = leaf.width + 'px';
+				div.style.height = leaf.height + 'px';
+				div.style.bottom = leaf.bottom + 'px';
+				div.style.left = leaf.left + 'px';
+				div.style.transform = 'rotate(' + leaf.rotation + 'deg)';
+				container.appendChild(div);
+			});
+		}
+
+		function initCinesalaScene() {
+			createPlant('plantLeft', true);
+			createPlant('plantRight', false);
+			const rainContainer = document.getElementById('rain');
+			if (rainContainer && !rainContainer.hasChildNodes()) {
+				for (var i = 0; i < 150; i++) {
+					var drop = document.createElement('div');
+					drop.className = 'raindrop';
+					drop.style.left = Math.random() * 100 + '%';
+					drop.style.animationDuration = (Math.random() * 0.5 + 0.5) + 's';
+					drop.style.animationDelay = Math.random() * 2 + 's';
+					drop.style.opacity = Math.random() * 0.5 + 0.3;
+					rainContainer.appendChild(drop);
+				}
+			}
+		}
+
+		function showSurprise() {
+			if (surpriseScreen) {
+				if (!surpriseScreen.dataset.initialized) {
+					initCinesalaScene();
+					surpriseScreen.dataset.initialized = '1';
+				}
+				surpriseScreen.classList.add('show');
+				surpriseScreen.setAttribute('aria-hidden', 'false');
+			}
+		}
+
+		function hideSurprise() {
+			if (surpriseScreen) {
+				surpriseScreen.classList.remove('show');
+				surpriseScreen.setAttribute('aria-hidden', 'true');
+			}
+		}
+
+		if (surpriseBtn) {
+			// Navega para a página externa com a cena da cinesala
+			surpriseBtn.addEventListener('click', function (e) {
+				e.preventDefault();
+				window.location.href = './cinesala-chuva.html';
+			});
+		}
+		if (surpriseClose) surpriseClose.addEventListener('click', hideSurprise);
 
 		// Timer desde 23/12/2024 (dia/mês/ano)
 		const startDate = new Date(2024, 11, 23, 0, 0, 0); // mês 11 = Dezembro
