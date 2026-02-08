@@ -800,13 +800,36 @@
 			z-index: 999;
 		}
 
+		.gate-content {
+			display: flex;
+			flex-direction: row;
+			align-items: center;
+			justify-content: center;
+			gap: clamp(12px, 4vw, 28px);
+			flex-wrap: wrap;
+			max-width: 92vw;
+		}
+
+		.gate-content .gate-photo {
+			width: clamp(160px, 26vw, 260px);
+			aspect-ratio: 4 / 3;
+			object-fit: cover;
+			border-radius: 12px;
+			border: 4px solid #ffffff;
+			box-shadow: 0 8px 22px rgba(0, 0, 0, 0.15);
+		}
+
 		.gate-card {
 			background: #ffffff;
 			padding: 24px 26px;
 			border-radius: 14px;
 			box-shadow: 0 8px 24px rgba(0,0,0,0.12);
 			text-align: center;
-			max-width: 92vw;
+		}
+
+		@media (max-width: 640px) {
+			.gate-content { flex-direction: column; gap: 12px; }
+			.gate-content .gate-photo { width: min(88vw, 360px); order: -1; }
 		}
 
 		.start-btn {
@@ -960,9 +983,13 @@
 		</div>
 	</div>
 	<div id="gate">
-		<div class="gate-card">
-			<h2 style="margin-top:0;color:#ad1457">Pronta para uma surpresa?</h2>
-			<button id="start" class="start-btn">Quero ver!</button>
+		<div class="gate-content">
+			<img class="gate-photo" src="./foto-3.png" alt="Nossa foto">
+			<div class="gate-card">
+				<h2 style="margin-top:0;color:#ad1457">Pronta para uma surpresa?</h2>
+				<button id="start" class="start-btn">Quero ver!</button>
+			</div>
+			<img class="gate-photo" src="./foto-4.png" alt="Nossa foto">
 		</div>
 	</div>
 
