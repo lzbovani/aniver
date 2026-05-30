@@ -694,8 +694,112 @@
     }
 
     @media (max-width: 860px) {
+      .gate {
+        padding: 16px;
+      }
+
+      .gate-card {
+        width: min(560px, 100%);
+        padding: 24px 18px;
+        border-radius: 22px;
+      }
+
+      .gate-title {
+        margin: 10px 0 0;
+        line-height: 1.08;
+      }
+
+      .start-btn {
+        width: 100%;
+        margin-top: 22px;
+        padding: 14px 18px;
+      }
+
+      .main {
+        width: calc(100% - 20px);
+        padding-top: 18px;
+        padding-bottom: 28px;
+      }
+
+      .hero,
+      .letter,
+      .gallery,
+      .moments,
+      .closing {
+        border-radius: 20px;
+        padding: 20px 16px;
+      }
+
+      .hero-title {
+        font-size: clamp(32px, 9.5vw, 52px);
+        line-height: 1.02;
+      }
+
+      .hero-title span {
+        display: block;
+        margin: 6px 0 0;
+        transform: none;
+      }
+
+      .hero-text,
+      .letter-text {
+        font-size: 16px;
+        line-height: 1.62;
+      }
+
+      .section-title {
+        font-size: clamp(30px, 9vw, 44px);
+      }
+
+      .cta-row {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .pill,
+      .link-btn {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .timer-wrap {
+        padding: 14px;
+      }
+
       .timer {
-        grid-template-columns: repeat(2, minmax(120px, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .timer-unit {
+        padding: 10px 6px;
+      }
+
+      .timer-value {
+        font-size: clamp(24px, 8vw, 34px);
+      }
+
+      .timer-label {
+        font-size: 11px;
+        letter-spacing: 0.7px;
+      }
+
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .photo-card {
+        min-height: 0;
+        aspect-ratio: 4 / 5;
+      }
+
+      .photo-tag {
+        left: 8px;
+        right: 8px;
+        bottom: 8px;
+        text-align: center;
       }
 
       .moments-grid {
@@ -705,8 +809,8 @@
 
     @media (max-width: 640px) {
       .main {
-        width: calc(100% - 20px);
-        padding-top: 18px;
+        width: calc(100% - 14px);
+        padding-top: 14px;
       }
 
       .hero,
@@ -714,20 +818,30 @@
       .gallery,
       .moments,
       .closing {
-        border-radius: 20px;
+        border-radius: 18px;
+        padding: 16px 13px;
       }
 
-      .timer {
-        grid-template-columns: repeat(2, minmax(110px, 1fr));
+      .overline {
+        font-size: 11px;
+        letter-spacing: 1.4px;
       }
 
-      .gallery-grid {
-        grid-template-columns: 1fr;
+      .timer-title {
+        font-size: clamp(22px, 7vw, 30px);
+      }
+
+      .moment p {
+        font-size: 14px;
       }
 
       .rio-sun {
         right: 6vw;
         top: 8vh;
+      }
+
+      .rio-cloud.c3 {
+        display: none;
       }
 
       .rio-mountain.back {
@@ -758,6 +872,35 @@
 
       .rio-boardwalk {
         height: 72px;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .main {
+        width: calc(100% - 10px);
+      }
+
+      .gate-card {
+        padding: 20px 14px;
+      }
+
+      .hero,
+      .letter,
+      .gallery,
+      .moments {
+        padding: 14px 11px;
+      }
+
+      .timer {
+        gap: 6px;
+      }
+
+      .rio-cloud.c2 {
+        display: none;
+      }
+
+      .rio-boardwalk {
+        height: 64px;
       }
     }
   </style>
