@@ -9,17 +9,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Parisienne&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-top: #160b18;
-      --bg-bottom: #28142b;
-      --card: rgba(255, 248, 251, 0.92);
-      --card-soft: rgba(255, 239, 246, 0.85);
+      --bg-top: #ffb26f;
+      --bg-mid: #f38475;
+      --bg-bottom: #355f8b;
+      --sea-top: #54b2cf;
+      --sea-bottom: #1a5d83;
+      --card: rgba(255, 250, 246, 0.93);
+      --card-soft: rgba(255, 245, 236, 0.88);
       --text: #2a1025;
-      --muted: #6d4b67;
+      --muted: #5c445a;
       --rose: #c93072;
       --rose-deep: #8f1d55;
-      --gold: #f2c572;
-      --line: rgba(121, 40, 82, 0.18);
-      --shadow: 0 18px 50px rgba(17, 3, 17, 0.35);
+      --gold: #ffd27a;
+      --line: rgba(104, 63, 88, 0.2);
+      --shadow: 0 18px 50px rgba(11, 18, 33, 0.34);
     }
 
     * {
@@ -37,61 +40,241 @@
       font-family: 'Outfit', sans-serif;
       color: var(--text);
       background:
-        radial-gradient(circle at 15% 20%, rgba(255, 119, 173, 0.32), transparent 30%),
-        radial-gradient(circle at 78% 10%, rgba(255, 193, 128, 0.2), transparent 35%),
-        radial-gradient(circle at 55% 85%, rgba(195, 64, 149, 0.25), transparent 35%),
-        linear-gradient(160deg, var(--bg-top), var(--bg-bottom));
+        radial-gradient(circle at 72% 16%, rgba(255, 213, 120, 0.52), transparent 26%),
+        radial-gradient(circle at 18% 14%, rgba(255, 163, 128, 0.38), transparent 30%),
+        linear-gradient(180deg, var(--bg-top) 0%, var(--bg-mid) 37%, #7d74b3 55%, var(--bg-bottom) 100%);
       overflow-x: hidden;
     }
 
-    .backdrop {
+    .rio-bg {
       position: fixed;
       inset: 0;
       z-index: -2;
       pointer-events: none;
+      overflow: hidden;
     }
 
-    .glow {
+    .rio-sky {
       position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 68% 18%, rgba(255, 223, 145, 0.6), rgba(255, 223, 145, 0) 34%),
+        linear-gradient(180deg, #ffbf83 0%, #f58f77 32%, #7e76b9 58%, #355f8b 100%);
+    }
+
+    .rio-sun {
+      position: absolute;
+      width: clamp(120px, 16vw, 210px);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      top: 9vh;
+      right: 13vw;
+      background: radial-gradient(circle at 40% 40%, #fff4ca 0%, #ffd88e 48%, #ffaf7a 78%, rgba(255, 175, 122, 0) 79%);
+      box-shadow: 0 0 40px rgba(255, 205, 124, 0.48);
+      animation: sunPulse 7s ease-in-out infinite;
+    }
+
+    .rio-cloud {
+      position: absolute;
+      width: 160px;
+      height: 44px;
       border-radius: 999px;
-      filter: blur(10px);
+      background: rgba(255, 243, 228, 0.58);
+      filter: blur(0.3px);
+      animation: cloudDrift linear infinite;
+    }
+
+    .rio-cloud::before,
+    .rio-cloud::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      background: inherit;
+    }
+
+    .rio-cloud::before {
+      width: 66px;
+      height: 52px;
+      left: 18px;
+      top: -19px;
+    }
+
+    .rio-cloud::after {
+      width: 78px;
+      height: 58px;
+      right: 16px;
+      top: -24px;
+    }
+
+    .rio-cloud.c1 {
+      top: 14vh;
+      left: -180px;
+      opacity: 0.8;
+      animation-duration: 57s;
+    }
+
+    .rio-cloud.c2 {
+      top: 23vh;
+      left: -280px;
+      transform: scale(0.82);
+      opacity: 0.62;
+      animation-duration: 72s;
+      animation-delay: 6s;
+    }
+
+    .rio-cloud.c3 {
+      top: 9vh;
+      left: -360px;
+      transform: scale(0.72);
+      opacity: 0.52;
+      animation-duration: 84s;
+      animation-delay: 14s;
+    }
+
+    .rio-mountain {
+      position: absolute;
+      left: -5%;
+      width: 110%;
+      pointer-events: none;
+    }
+
+    .rio-mountain.back {
+      bottom: 32vh;
+      height: 34vh;
+      background: #3f5475;
+      clip-path: polygon(0% 100%, 0% 70%, 8% 64%, 14% 52%, 20% 58%, 28% 44%, 36% 53%, 47% 34%, 58% 48%, 67% 31%, 76% 38%, 86% 26%, 100% 42%, 100% 100%);
+      opacity: 0.82;
+    }
+
+    .rio-mountain.mid {
+      bottom: 28vh;
+      height: 31vh;
+      background: #2a3e5a;
+      clip-path: polygon(0% 100%, 0% 79%, 12% 68%, 18% 72%, 24% 60%, 33% 69%, 42% 47%, 51% 62%, 60% 44%, 70% 54%, 79% 37%, 88% 45%, 100% 33%, 100% 100%);
+      opacity: 0.97;
+    }
+
+    .rio-sugarloaf {
+      position: absolute;
+      right: 11%;
+      bottom: 29vh;
+      width: clamp(110px, 16vw, 230px);
+      height: clamp(90px, 11vw, 160px);
+      background: #23344c;
+      border-radius: 56% 44% 38% 62% / 68% 60% 40% 32%;
+      transform: rotate(-5deg);
+      opacity: 0.96;
+    }
+
+    .rio-christ {
+      position: absolute;
+      left: 24%;
+      bottom: calc(31vh + 88px);
+      width: 7px;
+      height: 22px;
+      border-radius: 3px;
+      background: rgba(38, 53, 76, 0.9);
+    }
+
+    .rio-christ::before {
+      content: '';
+      position: absolute;
+      left: -10px;
+      top: 6px;
+      width: 27px;
+      height: 4px;
+      border-radius: 2px;
+      background: inherit;
+    }
+
+    .rio-ocean {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 36vh;
+      background: linear-gradient(180deg, var(--sea-top) 0%, #2a8fb2 24%, #1d6d93 62%, var(--sea-bottom) 100%);
+      overflow: hidden;
+    }
+
+    .rio-ocean::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0)),
+        repeating-linear-gradient(-4deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05) 2px, transparent 2px, transparent 8px);
       opacity: 0.5;
-      animation: drift 14s ease-in-out infinite;
     }
 
-    .glow.one {
-      width: 280px;
-      height: 280px;
-      top: -80px;
-      left: -30px;
-      background: radial-gradient(circle, rgba(255, 153, 197, 0.65), rgba(255, 153, 197, 0));
+    .rio-wave {
+      position: absolute;
+      left: -35%;
+      width: 170%;
+      border-radius: 100%;
+      border-top: 1px solid rgba(255, 255, 255, 0.42);
+      opacity: 0.52;
+      animation: tideMove linear infinite;
     }
 
-    .glow.two {
-      width: 360px;
-      height: 360px;
-      right: -90px;
-      top: 18%;
-      background: radial-gradient(circle, rgba(250, 211, 120, 0.5), rgba(250, 211, 120, 0));
-      animation-delay: 1.2s;
+    .rio-wave.w1 {
+      height: 86px;
+      top: 16%;
+      animation-duration: 12s;
     }
 
-    .glow.three {
-      width: 330px;
-      height: 330px;
-      left: 30%;
-      bottom: -120px;
-      background: radial-gradient(circle, rgba(222, 124, 184, 0.45), rgba(222, 124, 184, 0));
-      animation-delay: 2.4s;
+    .rio-wave.w2 {
+      height: 98px;
+      top: 37%;
+      animation-duration: 16s;
+      opacity: 0.35;
     }
 
-    @keyframes drift {
+    .rio-wave.w3 {
+      height: 110px;
+      top: 56%;
+      animation-duration: 21s;
+      opacity: 0.26;
+    }
+
+    .rio-boardwalk {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 88px;
+      background:
+        radial-gradient(54px 22px at 0 22px, #11171e 49%, transparent 50%) 0 0 / 108px 44px repeat-x,
+        radial-gradient(54px 22px at 54px 22px, #f3f1ec 49%, transparent 50%) 0 22px / 108px 44px repeat-x,
+        #eceae5;
+      box-shadow: 0 -10px 18px rgba(12, 25, 38, 0.3);
+    }
+
+    @keyframes sunPulse {
       0%,
       100% {
-        transform: translateY(0) translateX(0) scale(1);
+        transform: translateY(0) scale(1);
       }
       50% {
-        transform: translateY(-14px) translateX(10px) scale(1.05);
+        transform: translateY(2px) scale(1.03);
+      }
+    }
+
+    @keyframes cloudDrift {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(145vw);
+      }
+    }
+
+    @keyframes tideMove {
+      from {
+        transform: translateX(0);
+      }
+      to {
+        transform: translateX(90px);
       }
     }
 
@@ -541,14 +724,61 @@
       .gallery-grid {
         grid-template-columns: 1fr;
       }
+
+      .rio-sun {
+        right: 6vw;
+        top: 8vh;
+      }
+
+      .rio-mountain.back {
+        bottom: 35vh;
+        height: 27vh;
+      }
+
+      .rio-mountain.mid {
+        bottom: 31vh;
+        height: 24vh;
+      }
+
+      .rio-sugarloaf {
+        right: 4%;
+        bottom: 31vh;
+      }
+
+      .rio-christ {
+        left: 20%;
+        bottom: calc(31vh + 64px);
+        transform: scale(0.82);
+        transform-origin: bottom center;
+      }
+
+      .rio-ocean {
+        height: 39vh;
+      }
+
+      .rio-boardwalk {
+        height: 72px;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="backdrop" aria-hidden="true">
-    <div class="glow one"></div>
-    <div class="glow two"></div>
-    <div class="glow three"></div>
+  <div class="rio-bg" aria-hidden="true">
+    <div class="rio-sky"></div>
+    <div class="rio-sun"></div>
+    <div class="rio-cloud c1"></div>
+    <div class="rio-cloud c2"></div>
+    <div class="rio-cloud c3"></div>
+    <div class="rio-mountain back"></div>
+    <div class="rio-mountain mid"></div>
+    <div class="rio-sugarloaf"></div>
+    <div class="rio-christ"></div>
+    <div class="rio-ocean">
+      <div class="rio-wave w1"></div>
+      <div class="rio-wave w2"></div>
+      <div class="rio-wave w3"></div>
+    </div>
+    <div class="rio-boardwalk"></div>
   </div>
 
   <div class="hearts" aria-hidden="true">
