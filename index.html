@@ -1,18 +1,45 @@
-﻿<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Redirecionando...</title>
-  <meta http-equiv="refresh" content="0; url=./aniversario.html">
-  <script>
-    window.location.replace('./aniversario.html');
-  </script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#203c35">
+  <title>Nosso dia · Um postal para você</title>
+  <link rel="icon" type="image/svg+xml" href="./assets/coracao.svg">
+  <link rel="stylesheet" href="./postal.css">
 </head>
-<body>
-  <p>
-    Se nao for redirecionado automaticamente, clique aqui:
-    <a href="./aniversario.html">abrir pagina</a>
-  </p>
+<body class="cover rio-fixo">
+  <div class="postal-shell">
+    <header class="masthead">
+      <a class="brand" href="./index.html" aria-label="Nosso dia, início"><img src="./assets/envelope.svg" width="34" height="34" alt="">Nosso dia</a>
+      <nav class="mast-nav" aria-label="Navegação principal">
+        <a href="./index.html" aria-current="page">O postal</a>
+        <a href="./aniversario.html">Nossa história</a>
+      </nav>
+    </header>
+
+    <main>
+      <article class="postcard" aria-labelledby="postal-title">
+        <div class="postage" aria-hidden="true">
+          <img class="stamp" src="./assets/selo.svg" width="96" height="123" alt="">
+          <img class="postmark" src="./assets/carimbo.svg" width="147" height="70" alt="">
+        </div>
+        <div class="greeting">
+          <p class="salutation">Meu amor,</p>
+          <h1 id="postal-title">Um postal<br><em>para você.</em></h1>
+          <a class="open-postal" href="./aniversario.html">
+            <img src="./assets/envelope.svg" alt="" width="25" height="25">
+            Abrir nosso postal
+          </a>
+        </div>
+        <p class="place"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M19 10c0 5-7 11-7 11S5 15 5 10a7 7 0 1 1 14 0Z"/><circle cx="12" cy="10" r="2.2"/></svg>Rio de Janeiro, Brasil</p>
+      </article>
+    </main>
+
+    <footer class="postscript">
+      <p class="since"><span>Desde</span><time datetime="2024-12-23">23 de dezembro de 2024</time></p>
+      <p class="signoff">Com amor, sempre. <span aria-hidden="true">♡</span></p>
+    </footer>
+  </div>
 </body>
 </html>

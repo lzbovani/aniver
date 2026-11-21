@@ -1,0 +1,208 @@
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("./assets/fonts/cormorant.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Cormorant Garamond";
+  src: url("./assets/fonts/cormorant-italic.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "DM Sans";
+  src: url("./assets/fonts/dm-sans.woff2") format("woff2");
+  font-weight: 100 1000;
+  font-display: swap;
+}
+:root {
+  --paper: #faf5eb;
+  --ink: #203c35;
+  --rust: #934d3d;
+  --serif: "Cormorant Garamond", Georgia, serif;
+  --sans: "DM Sans", Arial, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; }
+.rio-fixo {
+  --rio-foto: url("./assets/rio.webp");
+  isolation: isolate;
+  min-height: 100svh;
+  background-color: #30483e;
+}
+.rio-fixo::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: var(--rio-veu, linear-gradient(transparent, transparent)), var(--rio-foto);
+  background-size: cover;
+  background-position: 50% 44%;
+  background-repeat: no-repeat;
+}
+@media (max-width: 650px) and (orientation: portrait) {
+  .rio-fixo { --rio-foto: url("./assets/rio-mobile.webp"); }
+}
+:focus-visible { outline: 3px solid #bc5737; outline-offset: 5px; }
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  color: var(--ink);
+  font: 600 2rem/.95 var(--serif);
+  letter-spacing: -.055em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.brand img, .brand svg { color: var(--rust); flex: none; }
+.cover {
+  --rio-veu: linear-gradient(90deg, #11291fd6, #162b225f 37%, transparent 72%),
+             linear-gradient(180deg, #17211db3, transparent 26%, transparent 62%, #12271fe0);
+  color: #fff6e6;
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+.postal-shell {
+  margin-inline: auto;
+  width: min(100% - clamp(2rem, 7vw, 8rem), 96rem);
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+}
+.postal-shell main { display: flex; flex: 1; }
+.cover .brand { color: inherit; }
+.cover .brand img { filter: brightness(0) invert(94%) sepia(24%); }
+.cover :focus-visible { outline-color: #fff6e6; }
+.masthead, .postscript {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.masthead { min-height: clamp(4.6rem, 10svh, 6.9rem); }
+.mast-nav { display: flex; align-items: center; gap: clamp(1.2rem, 3.3vw, 3.5rem); }
+.mast-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font: 500 .93rem/1.3 var(--sans);
+  color: inherit;
+  text-decoration: none;
+}
+.mast-nav a[aria-current], .mast-nav a:hover {
+  text-decoration: underline;
+  text-decoration-color: #f7d3ae;
+  text-underline-offset: .45rem;
+  text-decoration-thickness: 1px;
+}
+.postcard {
+  flex: 1;
+  position: relative;
+  display: grid;
+  align-items: center;
+  min-height: 34rem;
+  border: 1px solid #fff6e66e;
+  color: #fff6e6;
+  padding: 3rem clamp(2.8rem, 7.2vw, 8.5rem);
+}
+.greeting { position: relative; margin-top: .3rem; justify-self: start; }
+.salutation {
+  margin: 0 0 clamp(1.1rem, 3vh, 2rem);
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  font: 600 .82rem/1.2 var(--sans);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+.salutation::before { content: ""; width: 2rem; height: 1px; background: #efbf9b; }
+.greeting h1 {
+  margin: 0;
+  font: 500 clamp(5.9rem, 9.4vw, 10.4rem)/.82 var(--serif);
+  letter-spacing: -.065em;
+}
+.greeting h1 em { font-weight: 500; color: #ffdfbf; }
+.open-postal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .74rem;
+  margin-top: clamp(2rem, 4.8vh, 3.4rem);
+  border-radius: 10rem;
+  border: 1px solid #fff3de;
+  padding: .78rem 1.5rem;
+  min-height: 3.35rem;
+  background: #fff3de;
+  color: #323b30;
+  font: 600 .96rem/1.35 var(--sans);
+  text-decoration: none;
+  transition: background .18s, transform .18s;
+}
+.open-postal:hover { background: #fffaf0; transform: translateY(-2px); }
+.open-postal:focus-visible { outline-color: white; }
+.postage {
+  position: absolute;
+  right: clamp(1.9rem, 4.2vw, 5.5rem);
+  top: clamp(1.8rem, 5.5vh, 4.7rem);
+  width: clamp(4.3rem, 6.4vw, 7rem);
+  transform: rotate(9deg);
+  pointer-events: none;
+}
+.stamp { width: 100%; height: auto; display: block; filter: drop-shadow(0 1px 2px #30251b45); }
+.postmark {
+  position: absolute;
+  width: 145%;
+  height: auto;
+  top: 59%;
+  right: 62%;
+  transform: rotate(-18deg);
+  opacity: .9;
+}
+.place {
+  position: absolute;
+  bottom: clamp(1.3rem, 3.5vh, 2.4rem);
+  right: clamp(1.6rem, 3vw, 4.2rem);
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin: 0;
+  color: #fff9ed;
+  font-size: .87rem;
+  font-weight: 500;
+  text-shadow: 0 1px 4px #000;
+}
+.place svg { width: 1rem; height: 1rem; }
+.postscript { min-height: 6.2rem; gap: 1.2rem; }
+.since { margin: 0; display: flex; gap: .8rem; align-items: baseline; }
+.since span { color: #ffdfbf; font: 600 .75rem/1.2 var(--sans); text-transform: uppercase; letter-spacing: .15em; }
+.since time { font: 500 1.28rem/1.3 var(--serif); }
+.signoff { margin: 0; font: italic 500 1.65rem/1.1 var(--serif); }
+.signoff span { display: inline-block; color: #ffdfbf; font-family: Georgia, serif; margin-left: .18rem; font-size: .9em; transform: rotate(-10deg); }
+@media (max-width: 650px) {
+  .postal-shell { width: calc(100% - 1.5rem); }
+  .masthead { padding-inline: .35rem; min-height: 4.3rem; }
+  .brand { font-size: 1.7rem; gap: .45rem; }
+  .brand img, .brand svg { width: 27px; height: 27px; }
+  .mast-nav { gap: 1rem; }
+  .mast-nav a { font-size: .83rem; }
+  .postcard { align-items: end; padding: 2rem 1.7rem 4.9rem; min-height: 29rem; }
+  .cover {
+    --rio-veu: linear-gradient(180deg, #142923b8, transparent 20%, transparent 38%, #172b2494 60%, #0b221cde 100%);
+  }
+  .greeting h1 { font-size: clamp(4.6rem, 16.8vw, 6.8rem); line-height: .86; }
+  .salutation { font-size: .74rem; margin-bottom: 1.05rem; }
+  .postage { right: 1.35rem; top: 1.35rem; width: 3.7rem; }
+  .open-postal { min-height: 3rem; margin-top: 1.65rem; padding: .65rem 1.2rem; }
+  .place { bottom: 1.15rem; right: 1.2rem; font-size: .77rem; }
+  .postscript { padding: 1.15rem .45rem; min-height: 4.6rem; }
+  .since { flex-direction: column; gap: .15rem; }
+  .since span { font-size: .66rem; }
+  .since time { font-size: 1.02rem; }
+  .signoff { font-size: clamp(1.14rem, 4.5vw, 1.5rem); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .open-postal { transition: none; }
+}
